@@ -42,7 +42,7 @@ You'll encounter something akin to this when stepping into `Vec::new()` for exam
 ```
 To be able to see the sources, you need to substitute the `rustc/<hash>/` with the actual path to your sources, which are in `$RUSTUP_HOME/toolchains/<your toolchain>/lib/rustlib/src/rust`.
 
-Substituing this path manually in `gdb` or in your `.gdbinit` via `set substitute-path <from> <to>` works but is tedious, because the hash will change everytime you update your toolchain. This is especially annoying, when working with the nightly build (as I do).
+Substituing this path manually in `gdb` or in your `.gdbinit` via `set substitute-path <from> <to>` ([specifying gdb source directories](https://sourceware.org/gdb/onlinedocs/gdb/Source-Path.html#set-substitute_002dpath)) works but is tedious, because the hash will change everytime you update your toolchain. This is especially annoying, when working with the nightly build (as I do).
 
 For more information see [this post on the Rust user forum](https://users.rust-lang.org/t/solved-how-to-step-into-std-source-code-when-debugging-in-vs-code/25319/2).
 
