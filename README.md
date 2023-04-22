@@ -2,7 +2,7 @@
 
 ## Setup ##
 
-Be sure to have the `rust-src` component for your resepctive toolchains installed.
+Be sure to have the `rust-src` component of your respective toolchain installed.
 
 ```bash
 rustup component add rust-src
@@ -44,8 +44,8 @@ To be able to see the sources, you need to substitute the `rustc/<generated numb
 
 Substituing this path manually in `gdb` or in your `.gdbinit` via `set substitute-path <from> <to>` works but is tedious, because the generated number will change everytime you update your toolchain. This is especially annoying, when working with the nightly build (as I do).
 
-For mor information: https://users.rust-lang.org/t/solved-how-to-step-into-std-source-code-when-debugging-in-vs-code/25319/2
+For more information see [this post on the Rust user forum](https://users.rust-lang.org/t/solved-how-to-step-into-std-source-code-when-debugging-in-vs-code/25319/2).
 
 ## Notes ##
 
-While I've tried to make this as platform agnostic as possible, I've only tested this on Linux. Might need some tweaks on other operating systems.
+While I've tried to make this as platform agnostic as possible, I've only tested it on Linux. Might need some tweaks on other operating systems.
