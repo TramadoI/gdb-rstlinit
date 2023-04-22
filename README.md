@@ -46,6 +46,8 @@ Substituing this path manually in `gdb` or in your `.gdbinit` via `set substitut
 
 For more information see [this post on the Rust user forum](https://users.rust-lang.org/t/solved-how-to-step-into-std-source-code-when-debugging-in-vs-code/25319/2).
 
+Alternatively `rust-gdb` would also work, but that would mean not being able to use `gef`, `pwndbg` or `peda` (which I consider almost essential).
+
 ## Notes ##
 
 While I've tried to make this as platform agnostic as possible, I've only tested it on Linux. Might need some tweaks on other operating systems.
