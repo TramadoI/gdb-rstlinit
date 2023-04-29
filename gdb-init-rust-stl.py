@@ -1,6 +1,40 @@
 import gdb, subprocess, re, os, argparse
 from typing import Optional
 
+class InitRustPrettyPrinter():
+    """
+    When compiled with -g, Rust produces binaries which contain a gdb_load_rust_pretty_printers.py in the .debug_gdb_scripts section.
+    This makes gdb complain about missing scripts when run under plain gdb as opposed to the rust-gdb wrapper script.
+    Distribution put this script into $INSTALL_ROOT/lib/rustlib/etc, which is someplace gdb would never look at by default.
+
+    This class automatically adds the path to the gdb pretty printers to the gdb search path, so that gdb can find the pretty printers.
+    Prerequisite for this to work however is that the PYTHONPATH environment variable is set to the $INSTALL_ROOT/lib/rustlib/etc directory.
+    More information: https://github.com/rust-lang/rust/issues/33159
+    """
+
+    def __init__(self):
+        rustc_sysroot = self.get_rustc_sysroot()
+        gdb_python_module_directory = os.path.join(rustc_sysroot, "lib", "rustlib", "etc")
+        self.load_pretty_printers(gdb_python_module_directory)
+
+    def get_rustc_sysroot(self) -> Optional[str]:
+        try:
+            result = subprocess.run(["rustc", "--print=sysroot"], capture_output=True, text=True)
+            if result.returncode == 0:
+                return result.stdout.strip()
+            else:
+                self.con_print(f"Error: 'rustc --print=sysroot' failed with exit code {result.returncode}")
+
+        except FileNotFoundError:
+            self.con_print("Error: rustc command not found. Make sure Rust is installed and rustc is in your PATH")
+
+        return None
+
+    # This is useless if the PYTHONPATH variable is not set before gdb is run.
+    def load_pretty_printers(self, gdb_python_module_directory: str) -> None:
+        gdb.execute(f"add-auto-load-safe-path {gdb_python_module_directory}")
+        gdb.execute(f"dir {gdb_python_module_directory}")
+
 class InitRustStlCommand(gdb.Command):
     """
     A custom GDB command to automatically & correctly initialize the path of the Rust standard library for debugging, in order to be able to step into it with sources.
@@ -111,3 +145,4 @@ class InitRustStlCommand(gdb.Command):
                 self.con_print("Error: rustlib path not found in the binary")
 
 InitRustStlCommand()
+InitRustPrettyPrinter()

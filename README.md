@@ -1,4 +1,6 @@
 `gdb-rstlinit` is a small `gdb` utility, that automatically points GDB to the correct Rust STL sources of your active toolchain via the `rinit` command.
+It also correctly sets up the path to the gdb_load_rust_pretty_printers.py (in the .debug_gdb_scripts section when compiled with debug symbols).
+More information [about this](https://github.com/rust-lang/rust/issues/33159).
 
 ## Setup ##
 
@@ -8,26 +10,15 @@ Be sure to have the `rust-src` component of your respective toolchain installed.
 rustup component add rust-src
 ```
 
-Clone this repository and source `gdb-init-rust-stl.py` in your `.gdbinit`.
+Clone this repository and run the setup.
 ```bash
 git clone git@github.com:TramadoI/gdb-rstlinit.git
+cd gdb-rstlinit && chmod +x setup.sh
+./setup.sh
 ```
 
-```bash
-# In your .gdbinit
-source /path/to/gdb-init-rust-stl.py
-```
-
-I would also recommend to set up a hook to run this utility everytime an object file is loaded, so you dont have to type `rinit` everytime you start debugging.
-```bash
-# In your .gdbinit, gdb-init-rust-stl.py needs to be sourced at this point!
-python
-def on_new_objfile(event):
-    gdb.execute('rinit -q') # -q to suppress the output
-
-gdb.events.new_objfile.connect(on_new_objfile)
-end
-```
+This will source the Python script and set up a hook to run this utility everytime an object file is loaded, so you dont have to type `rinit` everytime you start debugging.
+For the pretty printing to work correctly, the `PYTHONPATH` variable NEEDS to be set to `$RUSTUP_HOME/toolchains/<your toolchain>/lib/rustlib/etc`.
 
 ## Why? ##
 
