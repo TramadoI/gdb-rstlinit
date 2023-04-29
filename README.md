@@ -18,7 +18,7 @@ cd gdb-rstlinit && chmod +x setup.sh
 ```
 
 This will source the Python script and set up a hook to run this utility everytime an object file is loaded, so you dont have to type `rinit` everytime you start debugging.
-For the pretty printing to work correctly, the `PYTHONPATH` variable NEEDS to be set to `$RUSTUP_HOME/toolchains/<your toolchain>/lib/rustlib/etc`.
+For the pretty printing to work correctly, the `PYTHONPATH` variable **NEEDS** to be set to `$RUSTUP_HOME/toolchains/<your toolchain>/lib/rustlib/etc`.
 
 ## Why? ##
 
