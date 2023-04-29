@@ -1,5 +1,5 @@
 `gdb-rstlinit` is a small `gdb` utility, that automatically points GDB to the correct Rust STL sources of your active toolchain via the `rinit` command.
-It also correctly sets up the path to the gdb_load_rust_pretty_printers.py (in the .debug_gdb_scripts section when compiled with debug symbols).
+It also correctly sets up the path to the `gdb_load_rust_pretty_printers.py` (in the `.debug_gdb_scripts` section when compiled with debug symbols).
 More information [about this](https://github.com/rust-lang/rust/issues/33159).
 
 ## Setup ##
