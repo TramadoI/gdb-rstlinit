@@ -23,10 +23,10 @@ class InitRustPrettyPrinter():
             if result.returncode == 0:
                 return result.stdout.strip()
             else:
-                self.con_print(f"Error: 'rustc --print=sysroot' failed with exit code {result.returncode}")
+                print(f"Error: 'rustc --print=sysroot' failed with exit code {result.returncode}")
 
         except FileNotFoundError:
-            self.con_print("Error: rustc command not found. Make sure Rust is installed and rustc is in your PATH")
+            print("Error: rustc command not found. Make sure Rust is installed and rustc is in your PATH")
 
         return None
 
