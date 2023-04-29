@@ -14,8 +14,10 @@ class InitRustPrettyPrinter():
 
     def __init__(self):
         rustc_sysroot = self.get_rustc_sysroot()
-        gdb_python_module_directory = os.path.join(rustc_sysroot, "lib", "rustlib", "etc")
-        self.load_pretty_printers(gdb_python_module_directory)
+
+        if rustc_sysroot is not None:
+            gdb_python_module_directory = os.path.join(rustc_sysroot, "lib", "rustlib", "etc")
+            self.load_pretty_printers(gdb_python_module_directory)
 
     def get_rustc_sysroot(self) -> Optional[str]:
         try:
