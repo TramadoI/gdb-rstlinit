@@ -129,6 +129,10 @@ class InitRustStlCommand(gdb.Command):
             self.con_write(f"Warning: Unknown arguments {unknown_args}")
 
         binary_path = gdb.current_progspace().filename
+        if not binary_path:
+            self.con_print("Error: No binary loaded")
+            return
+
         if not self.FORCE and not self.is_rust_binary(binary_path):
             self.con_print("Error: Current binary was not detected to be a Rust binary. If thats a false positive rerun with the '-f' flag")
             return
