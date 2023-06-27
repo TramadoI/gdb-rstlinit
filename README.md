@@ -12,7 +12,7 @@ rustup component add rust-src
 
 Clone this repository and run the setup.
 ```bash
-git clone git@github.com:TramadoI/gdb-rstlinit.git
+git clone git@github.com:tramasys/gdb-rstlinit.git
 cd gdb-rstlinit && chmod +x setup.sh
 ./setup.sh
 ```
